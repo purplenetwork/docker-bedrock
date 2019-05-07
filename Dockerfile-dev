@@ -1,7 +1,6 @@
 # Build arguments
-ARG IMAGE=purplenetworksrl/php-dev
-ARG APP_PATH=.
-FROM ${IMAGE}
+FROM purplenetworksrl/php-dev
+ONBUILD ARG APP_PATH=.
 
 # Add the source
 ONBUILD ADD --chown=application ${APP_PATH} /app
@@ -18,4 +17,3 @@ ONBUILD RUN mv wp /usr/local/bin/wp
 # Download and run composer
 ONBUILD USER application
 ONBUILD RUN composer install --no-ansi --no-interaction --no-progress --optimize-autoloader --no-dev --no-scripts
-ONBUILD RUN bin/console cache:warmup
